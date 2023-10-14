@@ -176,7 +176,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 
                 animator.SetBool("isCombatCam", true);
-                Debug.Log(animHorizontal.ToString() + "         " + animVertical.ToString());
                 animator.SetFloat("horizontal", animVertical);
                 animator.SetFloat("vertical", animHorizontal);
                 
@@ -199,7 +198,7 @@ public class PlayerMovement : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         // when to jump
-        if(Input.GetKey(jumpKey) && readyToJump && grounded)
+        if(Input.GetKey(jumpKey) && readyToJump && grounded && state != MovementState.crouching)
         {
             readyToJump = false;
 
