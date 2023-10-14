@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -11,19 +9,22 @@ public class PostProcessingManager : MonoBehaviour
     [SerializeField] Volume v;
 
     private Vignette vignette;
+    private ChromaticAberration aberration;
     [SerializeField] float vignetteSpeed;
 
     void Start()
     {
         v.profile.TryGet(out vignette);
+        v.profile.TryGet(out aberration);
     }
     // Update is called once per frame
     void Update()
     {
-        setVignette();
+        SetVignette();
+        SetAbberation();
     }
 
-    void setVignette()
+    void SetVignette()
     {
         if (pm.state == PlayerMovement.MovementState.crouching)
         {
@@ -35,5 +36,20 @@ public class PostProcessingManager : MonoBehaviour
             if (vignette.intensity.value > 0.1)
                 vignette.intensity.value -= vignetteSpeed * Time.deltaTime;
         }
+    }
+
+    void SetAbberation()
+    {
+        if (pm.state == PlayerMovement.MovementState.air)
+        {
+            if (aberration.intensity.value < 0.8)
+                aberration.intensity.value += vignetteSpeed * 8 * Time.deltaTime;
+        }
+        else
+        {
+            if (aberration.intensity.value > 0)
+                aberration.intensity.value -= vignetteSpeed * 4 * Time.deltaTime;
+        }
+        Debug.Log(aberration.intensity.value);
     }
 }
