@@ -2,18 +2,20 @@ using UnityEngine;
 
 public class ThirdPersonCamera : MonoBehaviour
 {
-    [Header("References")]
-    public Transform orientation;
-    public Transform player;
-    public Transform playerObj;
-    public Rigidbody rb;
 
+    [Header("References")]
+
+    [SerializeField] Camera cam;
+    [SerializeField]  Transform orientation;
+    [SerializeField]  Transform player;
+    [SerializeField]  Transform playerObj;
+    [SerializeField]  Rigidbody rb;
     public float rotationSpeed;
 
-    public Transform combatLookAt;
+    [SerializeField]  Transform combatLookAt;
 
-    public GameObject thirdPersonCam;
-    public GameObject combatCam;
+    [SerializeField]  GameObject thirdPersonCam;
+    [SerializeField] GameObject combatCam;
 
     public static CameraStyle currentStyle;
     public enum CameraStyle
@@ -24,6 +26,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
     private void Start()
     {
+        cam = Camera.main;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
