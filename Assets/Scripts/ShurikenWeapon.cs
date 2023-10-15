@@ -28,29 +28,17 @@ public class ShurikenWeapon : WeaponObj
     }
     void Instance()
     {
-        Quaternion q = Quaternion.FromToRotation(Vector3.up, transform.forward);
-        
-        objectToThrow.transform.rotation = q * attackPoint.transform.rotation;
+        Vector3 aimDir = (Aiming.hitPos - attackPoint.position).normalized;
 
-         GameObject projectile = Instantiate(objectToThrow, attackPoint.position, q);
+        GameObject projectile = Instantiate(objectToThrow, attackPoint.position, Quaternion.LookRotation(aimDir, Vector3.up));
 
-         projectile.GetComponent<ProjectileAddon>().damage = (int)damage; 
+        projectile.GetComponent<ProjectileAddon>().damage = (int)damage; 
 
         // get rigidbody component
         Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
 
-        // calculate direction
-        Vector3 forceDirection = cam.transform.forward;
-
-        RaycastHit hit;
-
-        if(Physics.Raycast(cam.position, cam.forward, out hit, 500f))
-        {
-            forceDirection = (hit.point - attackPoint.position).normalized;
-        }
-
         // add force
-        Vector3 forceToAdd = forceDirection * throwForce + transform.up * throwUpwardForce;
+        Vector3 forceToAdd = aimDir * throwForce + transform.up * throwUpwardForce;
 
         projectileRb.AddForce(forceToAdd, ForceMode.Impulse);
     }

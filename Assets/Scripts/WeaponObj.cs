@@ -5,7 +5,6 @@ using UnityEngine;
 public class WeaponObj : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] protected Transform cam;
     [SerializeField] protected Transform attackPoint;
 
     [Header("General")]

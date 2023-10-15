@@ -16,6 +16,7 @@ public class Aiming : MonoBehaviour
     [SerializeField] Transform debugTransform;
     [SerializeField] LayerMask aimColliderMask;
     public static bool isAiming;
+    public static Vector3 hitPos;
     [SerializeField] CinemachineFreeLook freeLook;
     // Start is called before the first frame update
     void Start()
@@ -52,7 +53,7 @@ public class Aiming : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(screenCenterPoint);
         if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, aimColliderMask))
         {
-            debugTransform.position = raycastHit.point;
+            hitPos = raycastHit.point;
         }
     }
 }
