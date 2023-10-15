@@ -31,11 +31,20 @@ public class PostProcessingManager : MonoBehaviour
             if (vignette.intensity.value < 0.35)
                 vignette.intensity.value += vignetteSpeed * Time.deltaTime;
         }
+        else if (Aiming.isAiming)
+        {
+            if (vignette.intensity.value < 0.25)
+                vignette.intensity.value += vignetteSpeed * Time.deltaTime;
+            else if (vignette.intensity.value > 0.25)
+                vignette.intensity.value -= vignetteSpeed * Time.deltaTime;
+        }
         else
         {
             if (vignette.intensity.value > 0.1)
                 vignette.intensity.value -= vignetteSpeed * Time.deltaTime;
         }
+        
+        
     }
 
     void SetAbberation()
@@ -50,6 +59,5 @@ public class PostProcessingManager : MonoBehaviour
             if (aberration.intensity.value > 0)
                 aberration.intensity.value -= vignetteSpeed * 4 * Time.deltaTime;
         }
-        Debug.Log(aberration.intensity.value);
     }
 }
