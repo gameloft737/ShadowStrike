@@ -12,7 +12,7 @@ public class WeaponObj : MonoBehaviour
     public float damage;
     public int totalUses;
 
-    protected Animator animator;
+    [SerializeField] protected Animator animator;
     protected KeyCode useKey = KeyCode.Mouse0;
     protected weaponType type;
     public enum weaponType{
@@ -25,7 +25,7 @@ public class WeaponObj : MonoBehaviour
     void Start()
     {
         readyToUse = true;
-        animator = GetComponent<Animator>();
+
         animator.keepAnimatorStateOnDisable = false;
         
         

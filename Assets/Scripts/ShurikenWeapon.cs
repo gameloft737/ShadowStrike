@@ -21,9 +21,9 @@ public class ShurikenWeapon : WeaponObj
     protected override void Action()
     {
         Debug.Log("trow");
-
-        //Invoke(nameof(Instance),0.55f);
-        Invoke(nameof(Instance),0f);
+        animator.SetTrigger("Throw");
+        Invoke(nameof(Instance),0.55f);
+        //Invoke(nameof(Instance),0f);
 
     }
     void Instance()

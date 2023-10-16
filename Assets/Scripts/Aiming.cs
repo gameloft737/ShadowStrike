@@ -55,5 +55,9 @@ public class Aiming : MonoBehaviour
         {
             hitPos = raycastHit.point;
         }
+        else
+        {
+            hitPos = ray.GetPoint(99f);
+        }
     }
 }
