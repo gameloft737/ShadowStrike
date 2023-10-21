@@ -22,7 +22,7 @@ public class ShurikenWeapon : WeaponObj
     {
         Debug.Log("trow");
         animator.SetTrigger("Throw");
-        Invoke(nameof(Instance),0.55f);
+        Invoke(nameof(Instance),0.65f);
         //Invoke(nameof(Instance),0f);
 
     }
