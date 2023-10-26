@@ -8,6 +8,8 @@ public class ShurikenWeapon : WeaponObj
     public float throwForce;
     public float throwUpwardForce;
 
+    [SerializeField] PlayerMovement pm;
+
     int isThrow;
     private void Update()
     {
@@ -22,7 +24,10 @@ public class ShurikenWeapon : WeaponObj
     {
         Debug.Log("trow");
         animator.SetTrigger("Throw");
-        Invoke(nameof(Instance),0.65f);
+        if (!pm.isMoving)
+            Invoke(nameof(Instance),1.05f);
+        else
+            Invoke(nameof(Instance),0.63f);
         //Invoke(nameof(Instance),0f);
 
     }

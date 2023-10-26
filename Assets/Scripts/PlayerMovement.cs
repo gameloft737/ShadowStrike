@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public bool isMoving;
     [Header("Movement")]
 
     private float animHorizontal;
@@ -106,6 +107,8 @@ public class PlayerMovement : MonoBehaviour
     {
         
         animator.SetBool("isMoving",horizontalInput != 0 || verticalInput != 0);
+
+        isMoving = horizontalInput != 0 || verticalInput != 0;
 
         float multiplier;
         if (state == MovementState.sprinting || state == MovementState.crouching)

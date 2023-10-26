@@ -1410,6 +1410,7 @@ MonoBehaviour:
     type: 3}
   throwForce: 8.5
   throwUpwardForce: 0
+  pm: {fileID: 2080366233}
 --- !u!1 &572588972
 GameObject:
   m_ObjectHideFlags: 0
@@ -4104,6 +4105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7cf48b585e6094888295d494d9437a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMoving: 0
   animSmoothingSpeed: 1.4
   animDst: 0.3
   animator: {fileID: 4371391771934312180}
