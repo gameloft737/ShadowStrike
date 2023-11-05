@@ -1410,6 +1410,7 @@ MonoBehaviour:
     type: 3}
   throwForce: 8.5
   throwUpwardForce: 0
+  weapon: {fileID: 4739973979267457210}
   pm: {fileID: 2080366233}
 --- !u!1 &572588972
 GameObject:
@@ -3662,7 +3663,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1904085508}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.08886653, y: -0.11739103, z: 0.033883628, w: 0.98852116}
+  m_LocalRotation: {x: 0.08886653, y: -0.11739099, z: 0.033883616, w: 0.98852116}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5126,8 +5127,9 @@ GameObject:
   - component: {fileID: 4739973979267457209}
   - component: {fileID: 1260396000132974845}
   - component: {fileID: 3353282187112231305}
+  - component: {fileID: 4739973979267457210}
   m_Layer: 0
-  m_Name: Shuriken
+  m_Name: ShurikenObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6923,6 +6925,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2491994798251269840}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4739973979267457210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083458991155415898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08889c92d6f7b834793c8deb2399087f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rend: {fileID: 0}
 --- !u!4 &4745306166718900751
 Transform:
   m_ObjectHideFlags: 0

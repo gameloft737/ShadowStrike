@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class ShurikenWeapon : WeaponObj
 {
+    
     public GameObject objectToThrow;
     public float throwForce;
     public float throwUpwardForce;
 
+    [SerializeField] WeaponOn weapon;
     [SerializeField] PlayerMovement pm;
 
     int isThrow;
@@ -24,10 +26,18 @@ public class ShurikenWeapon : WeaponObj
     {
         Debug.Log("trow");
         animator.SetTrigger("Throw");
+        weapon.SetRenderer(true, 0f);
+        
         if (!pm.isMoving)
+        {
             Invoke(nameof(Instance),1.05f);
+            weapon.SetRenderer(false, 1f);
+        }
         else
+        {
             Invoke(nameof(Instance),0.63f);
+            weapon.SetRenderer(false, 0.6f);
+        }
         //Invoke(nameof(Instance),0f);
 
     }
