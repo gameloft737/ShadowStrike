@@ -56,9 +56,9 @@ public class ThirdPersonCamera : MonoBehaviour
         else if(currentStyle == CameraStyle.Combat)
         {
             Vector3 dirToCombatLookAt = combatLookAt.position - new Vector3(transform.position.x, combatLookAt.position.y, transform.position.z);
-            orientation.forward = dirToCombatLookAt.normalized;
+            orientation.forward = Vector3.Slerp(orientation.forward,dirToCombatLookAt.normalized,1f);
 
-            playerObj.forward = dirToCombatLookAt.normalized;
+            playerObj.forward = Vector3.Slerp(playerObj.forward,dirToCombatLookAt.normalized,1f);
         }
     }
 
