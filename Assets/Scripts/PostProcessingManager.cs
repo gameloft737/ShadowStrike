@@ -31,7 +31,7 @@ public class PostProcessingManager : MonoBehaviour
             if (vignette.intensity.value < 0.35)
                 vignette.intensity.value += vignetteSpeed * Time.deltaTime;
         }
-        else if (Aiming.isAiming)
+        else if (ThirdPersonCamera.currentStyle == ThirdPersonCamera.CameraStyle.Combat)
         {
             if (vignette.intensity.value < 0.25)
                 vignette.intensity.value += vignetteSpeed * Time.deltaTime;

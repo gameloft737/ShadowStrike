@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ThirdPersonCamera : MonoBehaviour
 {
-
+    private KeyCode aimKey = KeyCode.Mouse1;
     [Header("References")]
 
     [SerializeField] Camera cam;
@@ -11,11 +11,11 @@ public class ThirdPersonCamera : MonoBehaviour
     [SerializeField]  Transform playerObj;
     [SerializeField]  Rigidbody rb;
     public float rotationSpeed;
+    public  GameObject crosshair;
+    public Transform combatLookAt;
 
-    [SerializeField]  Transform combatLookAt;
-
-    [SerializeField]  GameObject thirdPersonCam;
-    [SerializeField] GameObject combatCam;
+    public  GameObject thirdPersonCam;
+    public GameObject combatCam;
 
     public static CameraStyle currentStyle;
     public enum CameraStyle
@@ -33,10 +33,19 @@ public class ThirdPersonCamera : MonoBehaviour
 
     private void Update()
     {
-        // switch styles
-        if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchCameraStyle(CameraStyle.Basic);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) SwitchCameraStyle(CameraStyle.Combat);
+        
+        if(Input.GetKey(aimKey))
+        {
+            currentStyle = CameraStyle.Combat;
+            crosshair.SetActive(true);
+        }
+        else
+        {
+            currentStyle = CameraStyle.Basic;
+            crosshair.SetActive(false);
 
+        }
+        combatCam.SetActive(Input.GetKey(aimKey));
 
         // rotate orientation
         Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
