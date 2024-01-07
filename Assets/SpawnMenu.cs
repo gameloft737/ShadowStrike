@@ -4,46 +4,47 @@ using UnityEngine.UI;
 
 public class SpawnMenu : MonoBehaviour
 {
-    [SerializeField] Image menuImage;
+    [SerializeField] Animator menuAnim;
     [SerializeField] AnimationCurve scaleAndSlowMoCurve;
 
     bool isMenuUp = false;
 
     void Update()
     {
+        if(isPlaying(menuAnim, "Hold"))
+        {
+                
+            Time.timeScale = 0.1f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
+        
         if (Input.GetKeyDown(KeyCode.Q) && !isMenuUp)
         {
-            StartCoroutine(PopUpMenuCoroutine(new Vector3(1f, 1f, 1f), 1.5f, scaleAndSlowMoCurve));
+            
+            isMenuUp = true;
+            menuAnim.SetTrigger("Open");
+            Debug.Log(menuAnim.GetCurrentAnimatorClipInfo(0)[0].clip.ToString());
+            
+            ThirdPersonCamera.DisableLock();
+
         }
         else if (Input.GetKeyUp(KeyCode.Q) && isMenuUp)
         {
-            StartCoroutine(PopUpMenuCoroutine(new Vector3(0f, 0f, 0f), 1.5f, scaleAndSlowMoCurve));
+            
+            isMenuUp = false;
+            menuAnim.SetTrigger("Close");
+            ThirdPersonCamera.EnableLock();
+        }
+        bool isPlaying(Animator anim, string stateName)
+{
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName(stateName))
+                return true;
+            else
+                return false;
         }
     }
 
-    IEnumerator PopUpMenuCoroutine(Vector3 targetScale, float duration, AnimationCurve curve)
-    {
-        isMenuUp = targetScale != Vector3.zero;
-        float initialTimeScale = Time.timeScale;
-        Vector3 initialScale = menuImage.transform.localScale;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            float progress = elapsedTime / duration;
-            float curveValue = curve.Evaluate(progress);
-
-            menuImage.transform.localScale = Vector3.Lerp(initialScale, targetScale, curveValue);
-            Time.timeScale = Mathf.Lerp(initialTimeScale, curveValue, curveValue);
-
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        // Ensure the final scale is set
-        menuImage.transform.localScale = targetScale;
-
-        // Reset time scale outside the loop
-        Time.timeScale = isMenuUp ? Mathf.Lerp(initialTimeScale, 0.1f, 0.1f) : 1f;
-    }
 }
