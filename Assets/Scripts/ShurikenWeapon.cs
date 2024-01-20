@@ -28,16 +28,9 @@ public class ShurikenWeapon : WeaponObj
         animator.SetTrigger("Throw");
         weapon.SetRenderer(true, 0f);
         
-        if (!pm.isMoving)
-        {
-            Invoke(nameof(Instance),1.05f);
-            weapon.SetRenderer(false, 1f);
-        }
-        else
-        {
+
             Invoke(nameof(Instance),0.63f);
             weapon.SetRenderer(false, 0.6f);
-        }
         //Invoke(nameof(Instance),0f);
 
     }

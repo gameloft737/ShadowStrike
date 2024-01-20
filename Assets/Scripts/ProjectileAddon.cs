@@ -9,7 +9,9 @@ public class ProjectileAddon : MonoBehaviour
 
     public int destroyTime;
     private Rigidbody rb;
-
+    public bool doExplosions;
+    public bool isDetonation;
+    public bool radiusExplosion;
     private bool targetHit;
 
     private void Start()
@@ -19,13 +21,21 @@ public class ProjectileAddon : MonoBehaviour
 
     private void Update() 
     {
-        if(!rb.isKinematic)
+        if(!rb.isKinematic && !isDetonation)
             Destroy(gameObject, destroyTime);
+        if (isDetonation && Input.GetKeyDown(KeyCode.G))
+        {
+            Debug.Log("BOOM");
+            Detonate();
+        }
     }
     private void OnCollisionEnter(Collision collision)
     {
         
-        
+        if(isDetonation)
+        {
+            return;
+        }
         // make sure only to stick to the first target you hit
         if (targetHit)
             return;
@@ -35,10 +45,21 @@ public class ProjectileAddon : MonoBehaviour
             Destroy(gameObject);
         // check if you hit an enemy
         if(collision.gameObject.tag != "Player")
-            // make sure projectile sticks to surface
-            rb.isKinematic = true;
-            // make sure projectile moves with target
-            transform.SetParent(collision.transform);
+        {
+            if(doExplosions & !isDetonation)
+            {
+                GetComponent<Explosion>().Explode(5f,500,5f);
+                Destroy(gameObject);
+            }
+            else
+            {
+                // make sure projectile sticks to surface
+                rb.isKinematic = true;
+                // make sure projectile moves with target
+                transform.SetParent(collision.transform);
+            }
+            
+        }
         if(collision.gameObject.CompareTag("noStick"))
         {
             // destroy projectile
@@ -48,37 +69,33 @@ public class ProjectileAddon : MonoBehaviour
     }
     private void OnTriggerEnter(Collider collision)
     {
-        
-        
+        if(!isDetonation)
+        {
+            return;
+        }
         // make sure only to stick to the first target you hit
         if (targetHit)
             return;
         else
             targetHit = true;
         if(collision.gameObject.tag == "Player")
-            Destroy(gameObject);
-        // check if you hit an enemy
-        if(collision.gameObject.GetComponent<BasicEnemy>() != null)
-        {
-            
-            BasicEnemy enemy = collision.gameObject.GetComponent<BasicEnemy>();
-            var collisionPoint = collision.ClosestPoint(transform.position);
-            enemy.TakeDamage(damage, collisionPoint);
-
-            // destroy projectile
-            Destroy(gameObject);
-        }
+            return;
+        
         if(collision.gameObject.tag != "Player")
             // make sure projectile sticks to surface
             rb.isKinematic = true;
             // make sure projectile moves with target
-            transform.SetParent(collision.transform);
+            transform.SetParent(collision.transform, true);
         if(collision.gameObject.CompareTag("noStick"))
         {
             // destroy projectile
             Destroy(gameObject);
         }
-        
+    }
+    public void Detonate()
+    {
+        GetComponent<Explosion>().Explode(7f,700,10f);
+        Destroy(gameObject);
     }
 }
 
