@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ThirdPersonCamera : MonoBehaviour
@@ -81,16 +82,14 @@ public class ThirdPersonCamera : MonoBehaviour
         }
     }
 
-    private void SwitchCameraStyle(CameraStyle newStyle)
+    public void SetPlace()
     {
-        combatCam.SetActive(false);
-        thirdPersonCam.SetActive(false);
-
-
-        if (newStyle == CameraStyle.Basic) thirdPersonCam.SetActive(true);
-        if (newStyle == CameraStyle.Combat) combatCam.SetActive(true);
-
-
-        currentStyle = newStyle;
+        if(currentStyle == CameraStyle.Basic && ((Math.Abs(Input.GetAxis("Horizontal")) + Math.Abs(Input.GetAxis("Vertical"))) > 0.05f))
+        {
+            return;
+        }
+        Vector3 dirToCombatLookAt = combatLookAt.position - new Vector3(transform.position.x, combatLookAt.position.y, transform.position.z);
+        orientation.forward = dirToCombatLookAt.normalized;
+        playerObj.forward = dirToCombatLookAt.normalized;
     }
 }

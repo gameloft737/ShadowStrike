@@ -6,6 +6,7 @@ public class WeaponObj : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] protected Transform attackPoint;
+    [SerializeField] ThirdPersonCamera thirdPersonCamera;
 
     [Header("General")]
     public float cooldownTime;
@@ -24,8 +25,8 @@ public class WeaponObj : MonoBehaviour
 
     void Start()
     {
+        thirdPersonCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<ThirdPersonCamera>();
         readyToUse = true;
-
         animator.keepAnimatorStateOnDisable = false;
         
         
@@ -33,6 +34,7 @@ public class WeaponObj : MonoBehaviour
     // Update is called once per frame
     protected void Use(weaponType wType)
     {
+        
         if (readyToUse && totalUses > 0 && wType == weaponType.throwable)
         {
             readyToUse = false;
@@ -54,6 +56,7 @@ public class WeaponObj : MonoBehaviour
 
     private void resetThrow()
     {
+        thirdPersonCamera.SetPlace();
         readyToUse = true;
     }
 }
