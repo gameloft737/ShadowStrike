@@ -80,11 +80,10 @@ public class PlayerMovement : MonoBehaviour
 
         startYScale = transform.localScale.y;
     }
-
     private void Update()
     {
         // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        grounded = Physics.BoxCast(transform.position, new Vector3(0.45f, 0.1f, 0.45f), Vector3.down, out _, Quaternion.identity, playerHeight * 0.5f + 0.2f, whatIsGround);
 
         MyInput();
         SpeedControl();
